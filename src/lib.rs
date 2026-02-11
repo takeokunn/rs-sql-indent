@@ -1,7 +1,12 @@
-use sqlformat::{format, FormatOptions, QueryParams};
 pub use sqlformat::Indent;
+use sqlformat::{FormatOptions, QueryParams, format};
 
-pub fn format_sql(input: &str, indent: Indent, uppercase: bool, lines_between_queries: u8) -> String {
+pub fn format_sql(
+    input: &str,
+    indent: Indent,
+    uppercase: bool,
+    lines_between_queries: u8,
+) -> String {
     let options = FormatOptions {
         indent,
         uppercase,
@@ -24,7 +29,12 @@ mod tests {
 
     #[test]
     fn test_select_with_where() {
-        let result = format_sql("select id from users where id = 1", Indent::Spaces(2), true, 1);
+        let result = format_sql(
+            "select id from users where id = 1",
+            Indent::Spaces(2),
+            true,
+            1,
+        );
         assert!(result.contains("SELECT"));
         assert!(result.contains("FROM"));
         assert!(result.contains("WHERE"));
@@ -45,7 +55,12 @@ mod tests {
 
     #[test]
     fn test_with_join() {
-        let result = format_sql("select u.id, o.total from users u join orders o on u.id = o.user_id", Indent::Spaces(2), true, 1);
+        let result = format_sql(
+            "select u.id, o.total from users u join orders o on u.id = o.user_id",
+            Indent::Spaces(2),
+            true,
+            1,
+        );
         assert!(result.contains("SELECT"));
         assert!(result.contains("FROM"));
         assert!(result.contains("JOIN"));

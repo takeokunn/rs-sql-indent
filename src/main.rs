@@ -2,7 +2,7 @@ use std::io::{self, Read};
 use std::process;
 
 use clap::Parser;
-use rs_sql_indent::{format_sql, Indent};
+use rs_sql_indent::{Indent, format_sql};
 
 #[derive(Parser)]
 #[command(version, about)]
