@@ -1,0 +1,4 @@
+tsconfig.app.tsbuildinfo
+node_modules/
+dist/
+pkg/

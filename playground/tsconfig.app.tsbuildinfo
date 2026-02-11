@@ -1,1 +1,0 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/optionspanel.tsx","./src/components/sqlinput.tsx","./src/components/sqloutput.tsx","./src/data/samples.ts","./src/wasm/index.ts"],"version":"5.7.3"}
