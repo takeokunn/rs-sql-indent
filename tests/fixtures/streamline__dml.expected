@@ -1,19 +1,19 @@
-INSERT
-INTO
+insert
+into
   users(id, name)
-VALUES
+values
    (1, 'alice');
 
-UPDATE
+update
   users
-SET
+set
   name = 'bob',
   age = 30
-WHERE
+where
   id = 1;
 
-DELETE
-FROM
+delete
+from
   users
-WHERE
+where
   id = 2

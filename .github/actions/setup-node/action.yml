@@ -1,0 +1,24 @@
+name: Setup Node.js
+description: Setup pnpm and Node.js with caching
+
+inputs:
+  working-directory:
+    description: Working directory for pnpm install
+    required: false
+    default: playground
+
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v4
+      with:
+        version: latest
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: pnpm
+        cache-dependency-path: ${{ inputs.working-directory }}/pnpm-lock.yaml
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile
+      working-directory: ${{ inputs.working-directory }}

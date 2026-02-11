@@ -1,0 +1,1 @@
+select u.name, o.total, p.method from users u inner join orders o on u.id = o.user_id left join payments p on o.id = p.order_id where o.total > 100 and p.status = 'completed' order by o.total desc

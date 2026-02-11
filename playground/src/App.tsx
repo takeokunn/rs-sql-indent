@@ -10,7 +10,7 @@ export default function App() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [uppercase, setUppercase] = useState(true);
-  const [style, setStyle] = useState('standard');
+  const [style, setStyle] = useState('basic');
   const [autoFormat, setAutoFormat] = useState(false);
   const [wasmLoaded, setWasmLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);

@@ -7,10 +7,11 @@ A fast, opinionated SQL formatter CLI tool written in Rust.
 ## Features
 
 - Token-stream based formatting -- no AST parsing, no external dependencies
-- Two formatting styles: **Standard** (traditional) and **River** (leading comma)
+- Four formatting styles: **Basic**, **Streamline**, **Aligned**, and **Dataops**
 - Uppercase/lowercase keyword control
 - Zero-copy lexer for fast execution
 - Reads from stdin -- works with pipes and redirects
+- [Playground](https://takeokunn.github.io/rs-sql-indent/) -- try it in your browser via WebAssembly
 
 ## Install
 
@@ -20,13 +21,9 @@ cargo install --git https://github.com/takeokunn/rs-sql-indent.git
 
 ## Usage
 
-Basic usage:
-
 ```sh
-echo "select * from users where id = 1" | rs-sql-indent
+echo "select id, name from users where active = true" | rs-sql-indent
 ```
-
-Read from file:
 
 ```sh
 rs-sql-indent < query.sql
@@ -34,36 +31,50 @@ rs-sql-indent < query.sql
 
 ### Options
 
-- `--lowercase`: Output keywords in lowercase
+| Flag | Description |
+|------|-------------|
+| `--style <STYLE>` | Formatting style: `basic` (default), `streamline`, `aligned`, `dataops` |
+| `--lowercase` | Output keywords in lowercase |
+| `--uppercase` | Output keywords in uppercase (overrides style default) |
 
-  ```sh
-  echo "SELECT * FROM users" | rs-sql-indent --lowercase
-  ```
-
-- `--style <standard|river>`: Choose formatting style (default: standard)
-
-  ```sh
-  echo "select id, name from users where active = true" | rs-sql-indent --style river
-  ```
+```sh
+echo "select id, name from users" | rs-sql-indent --style aligned
+echo "select id, name from users" | rs-sql-indent --style streamline --uppercase
+```
 
 ## Formatting Styles
 
-**Standard** (default):
+**Basic** (default) -- 4-space indent, uppercase, trailing comma:
 
 ```sql
 SELECT
+    id,
+    name,
+    email
+FROM
+    users
+WHERE
+    active = TRUE
+ORDER BY
+    name
+```
+
+**Streamline** -- 2-space indent, lowercase, trailing comma:
+
+```sql
+select
   id,
   name,
   email
-FROM
+from
   users
-WHERE
-  active = TRUE
-ORDER BY
+where
+  active = true
+order by
   name
 ```
 
-**River**:
+**Aligned** -- right-aligned keywords, uppercase, leading comma:
 
 ```sql
 SELECT id
@@ -72,6 +83,21 @@ SELECT id
   FROM users
  WHERE active = TRUE
  ORDER BY name
+```
+
+**Dataops** -- 4-space indent, uppercase, leading comma:
+
+```sql
+SELECT
+    id
+    , name
+    , email
+FROM
+    users
+WHERE
+    active = TRUE
+ORDER BY
+    name
 ```
 
 ## Build

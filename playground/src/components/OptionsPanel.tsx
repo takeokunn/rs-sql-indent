@@ -40,16 +40,28 @@ export default function OptionsPanel({
           <span className="text-sm text-text-secondary">Style</span>
           <div className="segmented-control">
             <button
-              className={style === 'standard' ? 'active' : ''}
-              onClick={() => onStyleChange('standard')}
+              className={style === 'basic' ? 'active' : ''}
+              onClick={() => onStyleChange('basic')}
             >
-              Standard
+              Basic
             </button>
             <button
-              className={style === 'river' ? 'active' : ''}
-              onClick={() => onStyleChange('river')}
+              className={style === 'streamline' ? 'active' : ''}
+              onClick={() => onStyleChange('streamline')}
             >
-              River
+              Streamline
+            </button>
+            <button
+              className={style === 'aligned' ? 'active' : ''}
+              onClick={() => onStyleChange('aligned')}
+            >
+              Aligned
+            </button>
+            <button
+              className={style === 'dataops' ? 'active' : ''}
+              onClick={() => onStyleChange('dataops')}
+            >
+              Dataops
             </button>
           </div>
         </div>

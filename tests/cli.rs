@@ -16,9 +16,9 @@ fn test_basic_formatting() {
         .success()
         .stdout(
             r#"SELECT
-  *
+    *
 FROM
-  rockets
+    rockets
 "#,
         );
 }
@@ -40,14 +40,14 @@ fn test_complex_query() {
         .success()
         .stdout(
             r#"SELECT
-  g.luminosity,
-  s.velocity
+    g.luminosity,
+    s.velocity
 FROM
-  galaxies g
+    galaxies g
 JOIN stars s
-  ON g.cluster_id = s.galaxy_ref
+    ON g.cluster_id = s.galaxy_ref
 WHERE
-  s.velocity > 9000
+    s.velocity > 9000
 "#,
         );
 }
@@ -60,10 +60,10 @@ fn test_multiple_queries() {
         .success()
         .stdout(
             r#"SELECT
-  1;
+    1;
 
 SELECT
-  2
+    2
 "#,
         );
 }
@@ -77,9 +77,9 @@ fn test_lowercase_flag() {
         .success()
         .stdout(
             r#"select
-  power_level
+    power_level
 from
-  potions
+    potions
 "#,
         );
 }
@@ -94,9 +94,9 @@ fn test_version_flag() {
 }
 
 #[test]
-fn test_style_river() {
+fn test_style_aligned() {
     cmd()
-        .args(["--style", "river"])
+        .args(["--style", "aligned"])
         .write_stdin("select radius, color from crystals")
         .assert()
         .success()
@@ -109,9 +109,9 @@ fn test_style_river() {
 }
 
 #[test]
-fn test_style_river_with_lowercase() {
+fn test_style_aligned_with_lowercase() {
     cmd()
-        .args(["--style", "river", "--lowercase"])
+        .args(["--style", "aligned", "--lowercase"])
         .write_stdin("select altitude from volcanoes where dormant = true")
         .assert()
         .success()
@@ -124,17 +124,66 @@ fn test_style_river_with_lowercase() {
 }
 
 #[test]
-fn test_style_standard_explicit() {
+fn test_style_basic_explicit() {
     cmd()
-        .args(["--style", "standard"])
+        .args(["--style", "basic"])
         .write_stdin("select wingspan from dragons")
         .assert()
         .success()
         .stdout(
             r#"SELECT
-  wingspan
+    wingspan
 FROM
+    dragons
+"#,
+        );
+}
+
+#[test]
+fn test_style_streamline() {
+    cmd()
+        .args(["--style", "streamline"])
+        .write_stdin("select wingspan from dragons")
+        .assert()
+        .success()
+        .stdout(
+            r#"select
+  wingspan
+from
   dragons
+"#,
+        );
+}
+
+#[test]
+fn test_style_streamline_with_uppercase() {
+    cmd()
+        .args(["--style", "streamline", "--uppercase"])
+        .write_stdin("select id from users")
+        .assert()
+        .success()
+        .stdout(
+            r#"SELECT
+  id
+FROM
+  users
+"#,
+        );
+}
+
+#[test]
+fn test_style_dataops() {
+    cmd()
+        .args(["--style", "dataops"])
+        .write_stdin("select velocity, color from rockets")
+        .assert()
+        .success()
+        .stdout(
+            r#"SELECT
+    velocity
+    , color
+FROM
+    rockets
 "#,
         );
 }

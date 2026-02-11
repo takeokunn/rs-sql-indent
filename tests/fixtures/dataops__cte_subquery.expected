@@ -1,0 +1,23 @@
+WITH
+    active_users AS (
+    SELECT
+        id
+        , name
+    FROM
+        users
+    WHERE
+        active = TRUE
+    )
+SELECT
+    *
+FROM
+    active_users
+WHERE
+    id IN (
+    SELECT
+        user_id
+    FROM
+        orders
+    WHERE
+        total > 50
+    )

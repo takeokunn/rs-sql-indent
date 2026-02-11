@@ -1,0 +1,1 @@
+with active_users as (select id, name from users where active = true) select * from active_users where id in (select user_id from orders where total > 50)
