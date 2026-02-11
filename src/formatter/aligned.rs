@@ -440,5 +440,4 @@ mod tests {
         let result = fmt("select 1");
         assert!(!result.ends_with('\n'));
     }
-
 }
