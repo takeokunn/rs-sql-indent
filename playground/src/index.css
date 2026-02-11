@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: #282a36;
+  --color-bg-secondary: #44475a;
+  --color-bg-tertiary: #1e1f29;
+  --color-text-primary: #f8f8f2;
+  --color-text-secondary: #6272a4;
+  --color-accent-purple: #bd93f9;
+  --color-accent-pink: #ff79c6;
+  --color-accent-cyan: #8be9fd;
+  --color-accent-green: #50fa7b;
+  --color-accent-orange: #ffb86c;
+  --color-accent-red: #ff5555;
+  --color-accent-yellow: #f1fa8c;
+  --color-glass-bg: rgba(68, 71, 90, 0.4);
+  --color-glass-border: rgba(98, 114, 164, 0.3);
+  --color-glass-blur: 12px;
+  --color-error: #ff5555;
+  --color-border: rgba(98, 114, 164, 0.3);
+  --color-accent: #bd93f9;
+  --color-accent-hover: #caa4ff;
+}
+
+[data-theme="light"] {
+  --color-bg-primary: #f8f8f2;
+  --color-bg-secondary: #e8e8e2;
+  --color-bg-tertiary: #ededdf;
+  --color-text-primary: #282a36;
+  --color-text-secondary: #6272a4;
+  --color-accent-purple: #9b6dff;
+  --color-accent-pink: #d946a8;
+  --color-accent-cyan: #0891b2;
+  --color-accent-green: #16a34a;
+  --color-accent-orange: #ea580c;
+  --color-accent-red: #dc2626;
+  --color-accent-yellow: #ca8a04;
+  --color-glass-bg: rgba(255, 255, 255, 0.6);
+  --color-glass-border: rgba(40, 42, 54, 0.1);
+  --color-glass-blur: 10px;
+  --color-error: #dc2626;
+  --color-border: rgba(40, 42, 54, 0.15);
+  --color-accent: #9b6dff;
+  --color-accent-hover: #8b5cf6;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.glass {
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(var(--color-glass-blur));
+  -webkit-backdrop-filter: blur(var(--color-glass-blur));
+  border: 1px solid var(--color-glass-border);
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+  cursor: pointer;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.toggle-switch .slider {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-bg-secondary);
+  border-radius: 9999px;
+  transition: background-color 0.3s;
+}
+
+.toggle-switch .slider::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.toggle-switch input:checked + .slider {
+  background: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-pink));
+}
+
+.toggle-switch input:checked + .slider::before {
+  transform: translateY(-50%) translateX(22px);
+}
+
+.segmented-control {
+  display: inline-flex;
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(var(--color-glass-blur));
+  -webkit-backdrop-filter: blur(var(--color-glass-blur));
+  border: 1px solid var(--color-glass-border);
+  border-radius: 9999px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.segmented-control button {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.segmented-control button:hover {
+  color: var(--color-text-primary);
+}
+
+.segmented-control button.active {
+  background: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-pink));
+  color: #fff;
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-pink));
+}
