@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, Github } from 'lucide-react';
 import { initWasm, formatSql } from './wasm/index.ts';
 import SqlInput from './components/SqlInput.tsx';
 import SqlOutput from './components/SqlOutput.tsx';
@@ -102,7 +102,18 @@ export default function App() {
             SQL formatter powered by WebAssembly — runs entirely in your browser
           </p>
         </div>
-        <ThemeToggle theme={theme} onToggle={toggleTheme} />
+        <div className="flex items-center gap-3">
+          <a
+            href="https://github.com/takeokunn/rs-sql-indent"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center rounded-lg border border-border p-2 text-text-secondary transition-all hover:bg-glass-bg hover:text-text-primary"
+            title="View on GitHub"
+          >
+            <Github size={18} />
+          </a>
+          <ThemeToggle theme={theme} onToggle={toggleTheme} />
+        </div>
       </header>
 
       <OptionsPanel
