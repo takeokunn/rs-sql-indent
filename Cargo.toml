@@ -7,4 +7,4 @@ description = "A CLI tool that formats SQL from stdin"
 
 [dependencies]
 clap = { version = "4", features = ["derive"] }
-sqlformat = "0.2"
+sqlformat = "0.5"
