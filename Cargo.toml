@@ -4,7 +4,12 @@ version = "0.1.0"
 edition = "2024"
 license = "MIT"
 description = "A CLI tool that formats SQL from stdin"
+repository = "https://github.com/takeokunn/rs-sql-indent"
+rust-version = "1.85"
 
 [dependencies]
 clap = { version = "4", features = ["derive"] }
-sqlformat = "0.2"
+
+[dev-dependencies]
+assert_cmd = "2"
+predicates = "3"

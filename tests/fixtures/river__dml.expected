@@ -1,0 +1,12 @@
+INSERT
+  INTO users(id, name)
+VALUES (1, 'alice');
+
+UPDATE users
+   SET name = 'bob'
+       , age = 30
+ WHERE id = 1;
+
+DELETE
+  FROM users
+ WHERE id = 2

@@ -2,32 +2,26 @@ use std::io::{self, Read};
 use std::process;
 
 use clap::Parser;
-use rs_sql_indent::{Indent, format_sql};
+use rs_sql_indent::{FormatOptions, FormatStyle, format_sql};
 
 #[derive(Parser)]
 #[command(version, about)]
 struct Cli {
-    #[arg(long, default_value_t = 2, conflicts_with = "indent_tabs")]
-    indent_spaces: u8,
-
-    #[arg(long, default_value_t = false)]
-    indent_tabs: bool,
-
-    /// Disable uppercasing SQL keywords
+    /// Output keywords in lowercase
     #[arg(long)]
-    no_uppercase: bool,
+    lowercase: bool,
 
-    #[arg(long, default_value_t = 1)]
-    lines_between_queries: u8,
+    /// Formatting style
+    #[arg(long, value_enum, default_value_t = FormatStyle::Standard)]
+    style: FormatStyle,
 }
 
 fn main() {
     let cli = Cli::parse();
 
-    let indent = if cli.indent_tabs {
-        Indent::Tabs
-    } else {
-        Indent::Spaces(cli.indent_spaces)
+    let options = FormatOptions {
+        uppercase: !cli.lowercase,
+        style: cli.style,
     };
 
     let mut input = String::new();
@@ -41,6 +35,6 @@ fn main() {
         process::exit(1);
     }
 
-    let formatted = format_sql(&input, indent, !cli.no_uppercase, cli.lines_between_queries);
+    let formatted = format_sql(&input, &options);
     println!("{}", formatted);
 }

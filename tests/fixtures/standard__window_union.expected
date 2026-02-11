@@ -1,0 +1,11 @@
+SELECT
+  id,
+  row_number() OVER (PARTITION by dept ORDER BY salary DESC) AS rn
+FROM
+  employees
+UNION ALL
+SELECT
+  id,
+  rank() OVER (ORDER BY score) AS rn
+FROM
+  students
