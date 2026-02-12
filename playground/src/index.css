@@ -136,3 +136,13 @@ body {
 .gradient-accent {
   background: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-pink));
 }
+
+@media (max-width: 639px) {
+  .segmented-control {
+    width: 100%;
+  }
+  .segmented-control button {
+    flex: 1;
+    padding: 6px 8px;
+  }
+}

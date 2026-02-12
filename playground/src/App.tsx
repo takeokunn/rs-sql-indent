@@ -6,12 +6,29 @@ import SqlOutput from './components/SqlOutput.tsx';
 import OptionsPanel from './components/OptionsPanel.tsx';
 import ThemeToggle from './components/ThemeToggle.tsx';
 
+const STORAGE_KEY = 'playground-options';
+const DEFAULT_OPTIONS = { uppercase: true, style: 'basic', autoFormat: false };
+
+function loadOptions(): typeof DEFAULT_OPTIONS {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      return { ...DEFAULT_OPTIONS, ...parsed };
+    }
+  } catch {
+    // fall back to defaults
+  }
+  return DEFAULT_OPTIONS;
+}
+
 export default function App() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
-  const [uppercase, setUppercase] = useState(true);
-  const [style, setStyle] = useState('basic');
-  const [autoFormat, setAutoFormat] = useState(false);
+  const initialOptions = useRef(loadOptions());
+  const [uppercase, setUppercase] = useState(initialOptions.current.uppercase);
+  const [style, setStyle] = useState(initialOptions.current.style);
+  const [autoFormat, setAutoFormat] = useState(initialOptions.current.autoFormat);
   const [wasmLoaded, setWasmLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [theme, setTheme] = useState<'dark' | 'light'>(
@@ -30,6 +47,13 @@ export default function App() {
       return next;
     });
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ uppercase, style, autoFormat })
+    );
+  }, [uppercase, style, autoFormat]);
 
   useEffect(() => {
     initWasm()

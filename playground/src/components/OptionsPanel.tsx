@@ -21,7 +21,7 @@ export default function OptionsPanel({
 }: OptionsPanelProps) {
   return (
     <div className="mb-6 rounded-2xl glass p-5">
-      <div className="flex flex-wrap items-center gap-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
         {/* Uppercase toggle */}
         <div className="flex items-center gap-3">
           <label className="toggle-switch">
@@ -36,9 +36,9 @@ export default function OptionsPanel({
         </div>
 
         {/* Style segmented control */}
-        <div className="flex items-center gap-3">
+        <div className="flex w-full items-center gap-3 sm:w-auto">
           <span className="text-sm text-text-secondary">Style</span>
-          <div className="segmented-control">
+          <div className="segmented-control flex-1 sm:flex-initial">
             <button
               className={style === 'basic' ? 'active' : ''}
               onClick={() => onStyleChange('basic')}
@@ -80,10 +80,10 @@ export default function OptionsPanel({
         </div>
 
         {/* Samples dropdown */}
-        <div className="flex items-center gap-3">
+        <div className="flex w-full items-center gap-3 sm:w-auto">
           <span className="text-sm text-text-secondary">Samples</span>
           <select
-            className="rounded-lg border border-border bg-bg-tertiary px-3 py-1.5 text-sm text-text-primary outline-none transition-colors focus:border-accent-purple"
+            className="w-full rounded-lg border border-border bg-bg-tertiary px-3 py-1.5 text-sm text-text-primary outline-none transition-colors focus:border-accent-purple sm:w-auto"
             value=""
             onChange={(e) => {
               const sample = samples.find((s: SqlSample) => s.name === e.target.value);
