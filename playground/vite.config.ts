@@ -7,7 +7,7 @@ export default defineConfig({
     tailwindcss(),
     react(),
   ],
-  base: '/rs-sql-indent/',
+  base: '/',
   build: {
     target: 'esnext',
   },
