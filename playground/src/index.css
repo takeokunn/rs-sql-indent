@@ -47,7 +47,9 @@
 body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
 .glass {
@@ -94,7 +96,11 @@ body {
 }
 
 .toggle-switch input:checked + .slider {
-  background: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-pink));
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-purple),
+    var(--color-accent-pink)
+  );
 }
 
 .toggle-switch input:checked + .slider::before {
@@ -121,7 +127,9 @@ body {
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.3s, color 0.3s;
+  transition:
+    background 0.3s,
+    color 0.3s;
 }
 
 .segmented-control button:hover {
@@ -129,12 +137,20 @@ body {
 }
 
 .segmented-control button.active {
-  background: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-pink));
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-purple),
+    var(--color-accent-pink)
+  );
   color: #fff;
 }
 
 .gradient-accent {
-  background: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-pink));
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-purple),
+    var(--color-accent-pink)
+  );
 }
 
 @media (max-width: 639px) {

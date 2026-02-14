@@ -31,10 +31,10 @@ rs-sql-indent < query.sql
 
 ### Options
 
-| Flag | Description |
-|------|-------------|
+| Flag              | Description                                                             |
+| ----------------- | ----------------------------------------------------------------------- |
 | `--style <STYLE>` | Formatting style: `basic` (default), `streamline`, `aligned`, `dataops` |
-| `--lowercase` | Output keywords in lowercase |
+| `--lowercase`     | Output keywords in lowercase                                            |
 
 ```sh
 echo "select id, name from users" | rs-sql-indent --style aligned

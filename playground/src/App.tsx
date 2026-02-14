@@ -1,13 +1,13 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { ArrowDown, Github } from 'lucide-react';
-import { initWasm, formatSql } from './wasm/index.ts';
-import SqlInput from './components/SqlInput.tsx';
-import SqlOutput from './components/SqlOutput.tsx';
-import OptionsPanel from './components/OptionsPanel.tsx';
-import ThemeToggle from './components/ThemeToggle.tsx';
+import { useState, useEffect, useCallback, useRef } from "react";
+import { ArrowDown, Github } from "lucide-react";
+import { initWasm, formatSql } from "./wasm/index.ts";
+import SqlInput from "./components/SqlInput.tsx";
+import SqlOutput from "./components/SqlOutput.tsx";
+import OptionsPanel from "./components/OptionsPanel.tsx";
+import ThemeToggle from "./components/ThemeToggle.tsx";
 
-const STORAGE_KEY = 'playground-options';
-const DEFAULT_OPTIONS = { uppercase: true, style: 'basic', autoFormat: false };
+const STORAGE_KEY = "playground-options";
+const DEFAULT_OPTIONS = { uppercase: true, style: "basic", autoFormat: true };
 
 function loadOptions(): typeof DEFAULT_OPTIONS {
   try {
@@ -23,27 +23,30 @@ function loadOptions(): typeof DEFAULT_OPTIONS {
 }
 
 export default function App() {
-  const [input, setInput] = useState('');
-  const [output, setOutput] = useState('');
+  const [input, setInput] = useState("");
+  const [output, setOutput] = useState("");
   const initialOptions = useRef(loadOptions());
   const [uppercase, setUppercase] = useState(initialOptions.current.uppercase);
   const [style, setStyle] = useState(initialOptions.current.style);
-  const [autoFormat, setAutoFormat] = useState(initialOptions.current.autoFormat);
+  const [autoFormat, setAutoFormat] = useState(
+    initialOptions.current.autoFormat,
+  );
   const [wasmLoaded, setWasmLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [theme, setTheme] = useState<'dark' | 'light'>(
+  const [theme, setTheme] = useState<"dark" | "light">(
     () =>
-      (document.documentElement.getAttribute('data-theme') as
-        | 'dark'
-        | 'light') || 'dark'
+      (document.documentElement.getAttribute("data-theme") as
+        | "dark"
+        | "light") || "dark",
   );
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
+  const inputRef = useRef(input);
 
   const toggleTheme = useCallback(() => {
     setTheme((prev) => {
-      const next = prev === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
+      const next = prev === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
       return next;
     });
   }, []);
@@ -51,7 +54,7 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ uppercase, style, autoFormat })
+      JSON.stringify({ uppercase, style, autoFormat }),
     );
   }, [uppercase, style, autoFormat]);
 
@@ -64,7 +67,7 @@ export default function App() {
   const doFormat = useCallback(
     (sql: string) => {
       if (!sql.trim()) {
-        setOutput('');
+        setOutput("");
         return;
       }
       try {
@@ -72,11 +75,21 @@ export default function App() {
         const result = formatSql(sql, uppercase, style);
         setOutput(result);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Formatting failed');
+        setError(err instanceof Error ? err.message : "Formatting failed");
       }
     },
-    [uppercase, style]
+    [uppercase, style],
   );
+
+  // Keep refs in sync so the options-change effect can read latest values
+  // without re-firing on every keystroke.
+  const doFormatRef = useRef(doFormat);
+  useEffect(() => {
+    inputRef.current = input;
+  }, [input]);
+  useEffect(() => {
+    doFormatRef.current = doFormat;
+  }, [doFormat]);
 
   const handleInputChange = useCallback(
     (value: string) => {
@@ -86,7 +99,7 @@ export default function App() {
         debounceRef.current = setTimeout(() => doFormat(value), 300);
       }
     },
-    [autoFormat, wasmLoaded, doFormat]
+    [autoFormat, wasmLoaded, doFormat],
   );
 
   const handleSampleSelect = useCallback(
@@ -96,24 +109,28 @@ export default function App() {
         doFormat(sql);
       }
     },
-    [wasmLoaded, doFormat]
+    [wasmLoaded, doFormat],
   );
 
   const handleFormat = () => {
     if (!input.trim()) {
-      setError('Please enter some SQL to format.');
-      setOutput('');
+      setError("Please enter some SQL to format.");
+      setOutput("");
       return;
     }
     doFormat(input);
   };
 
-  // Re-format when options change and auto-format is on
+  // Re-format when options change and auto-format is on.
+  // Uses refs for `input` and `doFormat` so this effect only fires when the
+  // options themselves change — not on every keystroke (which would bypass the
+  // 300 ms debounce in handleInputChange).
   useEffect(() => {
-    if (autoFormat && wasmLoaded && input.trim()) {
-      doFormat(input);
+    const currentInput = inputRef.current;
+    if (autoFormat && wasmLoaded && currentInput.trim()) {
+      doFormatRef.current(currentInput);
     }
-  }, [uppercase, style, autoFormat, wasmLoaded, input, doFormat]);
+  }, [uppercase, style, autoFormat, wasmLoaded]);
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-8">
@@ -165,7 +182,7 @@ export default function App() {
               Format
             </>
           ) : (
-            'Loading WASM...'
+            "Loading WASM..."
           )}
         </button>
         <div className="h-px flex-1 bg-border" />

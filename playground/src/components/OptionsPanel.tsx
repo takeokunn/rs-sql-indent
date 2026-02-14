@@ -1,4 +1,4 @@
-import { samples, type SqlSample } from '../data/samples';
+import { samples, type SqlSample } from "../data/samples";
 
 interface OptionsPanelProps {
   uppercase: boolean;
@@ -40,26 +40,26 @@ export default function OptionsPanel({
           <span className="text-sm text-text-secondary">Style</span>
           <div className="segmented-control flex-1 sm:flex-initial">
             <button
-              className={style === 'basic' ? 'active' : ''}
-              onClick={() => onStyleChange('basic')}
+              className={style === "basic" ? "active" : ""}
+              onClick={() => onStyleChange("basic")}
             >
               Basic
             </button>
             <button
-              className={style === 'streamline' ? 'active' : ''}
-              onClick={() => onStyleChange('streamline')}
+              className={style === "streamline" ? "active" : ""}
+              onClick={() => onStyleChange("streamline")}
             >
               Streamline
             </button>
             <button
-              className={style === 'aligned' ? 'active' : ''}
-              onClick={() => onStyleChange('aligned')}
+              className={style === "aligned" ? "active" : ""}
+              onClick={() => onStyleChange("aligned")}
             >
               Aligned
             </button>
             <button
-              className={style === 'dataops' ? 'active' : ''}
-              onClick={() => onStyleChange('dataops')}
+              className={style === "dataops" ? "active" : ""}
+              onClick={() => onStyleChange("dataops")}
             >
               Dataops
             </button>
@@ -86,7 +86,9 @@ export default function OptionsPanel({
             className="w-full rounded-lg border border-border bg-bg-tertiary px-3 py-1.5 text-sm text-text-primary outline-none transition-colors focus:border-accent-purple sm:w-auto"
             value=""
             onChange={(e) => {
-              const sample = samples.find((s: SqlSample) => s.name === e.target.value);
+              const sample = samples.find(
+                (s: SqlSample) => s.name === e.target.value,
+              );
               if (sample) onSampleSelect(sample.sql);
             }}
           >

@@ -1,14 +1,14 @@
-import CodeMirror from '@uiw/react-codemirror';
-import { sql } from '@codemirror/lang-sql';
-import { dracula } from '@uiw/codemirror-theme-dracula';
-import { githubLight } from '@uiw/codemirror-theme-github';
-import { useCallback, useRef, useState, DragEvent, ChangeEvent } from 'react';
-import { Upload } from 'lucide-react';
+import CodeMirror from "@uiw/react-codemirror";
+import { sql } from "@codemirror/lang-sql";
+import { dracula } from "@uiw/codemirror-theme-dracula";
+import { githubLight } from "@uiw/codemirror-theme-github";
+import { useCallback, useRef, useState, DragEvent, ChangeEvent } from "react";
+import { Upload } from "lucide-react";
 
 interface SqlInputProps {
   value: string;
   onChange: (value: string) => void;
-  theme: 'dark' | 'light';
+  theme: "dark" | "light";
 }
 
 export default function SqlInput({ value, onChange, theme }: SqlInputProps) {
@@ -38,38 +38,38 @@ export default function SqlInput({ value, onChange, theme }: SqlInputProps) {
       e.stopPropagation();
       setIsDragging(false);
       const file = e.dataTransfer.files[0];
-      if (file && file.name.endsWith('.sql')) {
+      if (file && file.name.endsWith(".sql")) {
         const reader = new FileReader();
         reader.onload = (ev) => {
           const text = ev.target?.result;
-          if (typeof text === 'string') {
+          if (typeof text === "string") {
             onChange(text);
           }
         };
         reader.readAsText(file);
       }
     },
-    [onChange]
+    [onChange],
   );
 
   const handleFileChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
-      if (file && file.name.endsWith('.sql')) {
+      if (file && file.name.endsWith(".sql")) {
         const reader = new FileReader();
         reader.onload = (ev) => {
           const text = ev.target?.result;
-          if (typeof text === 'string') {
+          if (typeof text === "string") {
             onChange(text);
           }
         };
         reader.readAsText(file);
       }
       if (fileInputRef.current) {
-        fileInputRef.current.value = '';
+        fileInputRef.current.value = "";
       }
     },
-    [onChange]
+    [onChange],
   );
 
   return (
@@ -97,7 +97,7 @@ export default function SqlInput({ value, onChange, theme }: SqlInputProps) {
         </div>
       </div>
       <div
-        className={`overflow-hidden rounded-xl border glass ${isDragging ? 'border-accent-purple' : 'border-border'}`}
+        className={`overflow-hidden rounded-xl border glass ${isDragging ? "border-accent-purple" : "border-border"}`}
         onDragOver={handleDragOver}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
@@ -106,7 +106,7 @@ export default function SqlInput({ value, onChange, theme }: SqlInputProps) {
         <CodeMirror
           value={value}
           height="400px"
-          theme={theme === 'dark' ? dracula : githubLight}
+          theme={theme === "dark" ? dracula : githubLight}
           extensions={[sql()]}
           onChange={onChange}
           placeholder="Paste your SQL here or drag a .sql file..."

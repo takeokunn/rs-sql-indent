@@ -1,13 +1,13 @@
-import { useState, useCallback } from 'react';
-import CodeMirror from '@uiw/react-codemirror';
-import { sql } from '@codemirror/lang-sql';
-import { dracula } from '@uiw/codemirror-theme-dracula';
-import { githubLight } from '@uiw/codemirror-theme-github';
-import { Copy, Check, Download } from 'lucide-react';
+import { useState, useCallback } from "react";
+import CodeMirror from "@uiw/react-codemirror";
+import { sql } from "@codemirror/lang-sql";
+import { dracula } from "@uiw/codemirror-theme-dracula";
+import { githubLight } from "@uiw/codemirror-theme-github";
+import { Copy, Check, Download } from "lucide-react";
 
 interface SqlOutputProps {
   value: string;
-  theme: 'dark' | 'light';
+  theme: "dark" | "light";
 }
 
 export default function SqlOutput({ value, theme }: SqlOutputProps) {
@@ -22,11 +22,11 @@ export default function SqlOutput({ value, theme }: SqlOutputProps) {
 
   const handleDownload = useCallback(() => {
     if (!value) return;
-    const blob = new Blob([value], { type: 'text/sql' });
+    const blob = new Blob([value], { type: "text/sql" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = 'formatted.sql';
+    a.download = "formatted.sql";
     a.click();
     URL.revokeObjectURL(url);
   }, [value]);
@@ -53,8 +53,12 @@ export default function SqlOutput({ value, theme }: SqlOutputProps) {
             disabled={!value}
             title="Copy to clipboard"
           >
-            {copied ? <Check size={14} className="text-accent-green" /> : <Copy size={14} />}
-            <span>{copied ? 'Copied!' : 'Copy'}</span>
+            {copied ? (
+              <Check size={14} className="text-accent-green" />
+            ) : (
+              <Copy size={14} />
+            )}
+            <span>{copied ? "Copied!" : "Copy"}</span>
           </button>
         </div>
       </div>
@@ -62,7 +66,7 @@ export default function SqlOutput({ value, theme }: SqlOutputProps) {
         <CodeMirror
           value={value}
           height="400px"
-          theme={theme === 'dark' ? dracula : githubLight}
+          theme={theme === "dark" ? dracula : githubLight}
           extensions={[sql()]}
           editable={false}
           readOnly={true}
