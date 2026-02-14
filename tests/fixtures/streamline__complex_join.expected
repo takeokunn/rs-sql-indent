@@ -1,15 +1,15 @@
-select
+SELECT
   u.name,
   o.total,
   p.method
-from
+FROM
   users u
-inner join orders o
-  on u.id = o.user_id
-left join payments p
-  on o.id = p.order_id
-where
+INNER JOIN orders o
+  ON u.id = o.user_id
+LEFT JOIN payments p
+  ON o.id = p.order_id
+WHERE
   o.total > 100
-  and p.status = 'completed'
-order by
-  o.total desc
+  AND p.status = 'completed'
+ORDER BY
+  o.total DESC

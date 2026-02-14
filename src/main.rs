@@ -11,10 +11,6 @@ struct Cli {
     #[arg(long)]
     lowercase: bool,
 
-    /// Output keywords in uppercase (overrides style default)
-    #[arg(long)]
-    uppercase: bool,
-
     /// Formatting style
     #[arg(long, value_enum, default_value_t = FormatStyle::Basic)]
     style: FormatStyle,
@@ -23,13 +19,7 @@ struct Cli {
 fn main() {
     let cli = Cli::parse();
 
-    let uppercase = if cli.lowercase {
-        false
-    } else if cli.uppercase {
-        true
-    } else {
-        cli.style.default_uppercase()
-    };
+    let uppercase = !cli.lowercase;
 
     let options = FormatOptions {
         uppercase,

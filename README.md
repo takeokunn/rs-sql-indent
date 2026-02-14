@@ -35,11 +35,10 @@ rs-sql-indent < query.sql
 |------|-------------|
 | `--style <STYLE>` | Formatting style: `basic` (default), `streamline`, `aligned`, `dataops` |
 | `--lowercase` | Output keywords in lowercase |
-| `--uppercase` | Output keywords in uppercase (overrides style default) |
 
 ```sh
 echo "select id, name from users" | rs-sql-indent --style aligned
-echo "select id, name from users" | rs-sql-indent --style streamline --uppercase
+echo "select id, name from users" | rs-sql-indent --style streamline
 ```
 
 ## Formatting Styles
@@ -59,18 +58,18 @@ ORDER BY
     name
 ```
 
-**Streamline** -- 2-space indent, lowercase, trailing comma:
+**Streamline** -- 2-space indent, trailing comma:
 
 ```sql
-select
+SELECT
   id,
   name,
   email
-from
+FROM
   users
-where
-  active = true
-order by
+WHERE
+  active = TRUE
+ORDER BY
   name
 ```
 

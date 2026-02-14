@@ -1,11 +1,11 @@
-select
+SELECT
   id,
-  row_number() over (partition by dept order by salary desc) as rn
-from
+  row_number() OVER (PARTITION by dept ORDER BY salary DESC) AS rn
+FROM
   employees
-union all
-select
+UNION ALL
+SELECT
   id,
-  rank() over (order by score) as rn
-from
+  rank() OVER (ORDER BY score) AS rn
+FROM
   students

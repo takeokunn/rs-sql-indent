@@ -147,25 +147,25 @@ fn test_style_streamline() {
         .assert()
         .success()
         .stdout(
-            r#"select
+            r#"SELECT
   wingspan
-from
+FROM
   dragons
 "#,
         );
 }
 
 #[test]
-fn test_style_streamline_with_uppercase() {
+fn test_style_streamline_with_lowercase() {
     cmd()
-        .args(["--style", "streamline", "--uppercase"])
+        .args(["--style", "streamline", "--lowercase"])
         .write_stdin("select id from users")
         .assert()
         .success()
         .stdout(
-            r#"SELECT
+            r#"select
   id
-FROM
+from
   users
 "#,
         );
@@ -186,6 +186,15 @@ FROM
     rockets
 "#,
         );
+}
+
+#[test]
+fn test_uppercase_flag_rejected() {
+    cmd()
+        .arg("--uppercase")
+        .write_stdin("select 1")
+        .assert()
+        .failure();
 }
 
 #[test]

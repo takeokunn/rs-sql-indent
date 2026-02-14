@@ -1,10 +1,10 @@
-select
+SELECT
   id,
   name,
   email
-from
+FROM
   users
-where
-  active = true
-order by
+WHERE
+  active = TRUE
+ORDER BY
   name

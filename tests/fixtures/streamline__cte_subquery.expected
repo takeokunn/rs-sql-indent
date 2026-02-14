@@ -1,23 +1,23 @@
-with
-  active_users as (
-  select
+WITH
+  active_users AS (
+  SELECT
     id,
     name
-  from
+  FROM
     users
-  where
-    active = true
+  WHERE
+    active = TRUE
   )
-select
+SELECT
   *
-from
+FROM
   active_users
-where
-  id in (
-  select
+WHERE
+  id IN (
+  SELECT
     user_id
-  from
+  FROM
     orders
-  where
+  WHERE
     total > 50
   )

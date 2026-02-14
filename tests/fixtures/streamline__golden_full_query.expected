@@ -1,22 +1,22 @@
-with
-  active_users as (
-  select
+WITH
+  active_users AS (
+  SELECT
     id,
     name
-  from
+  FROM
     users
-  where
-    active = true
+  WHERE
+    active = TRUE
   )
-select
+SELECT
   u.id,
   u.name,
   o.total
-from
+FROM
   active_users u
-join orders o
-  on u.id = o.user_id
-where
+JOIN orders o
+  ON u.id = o.user_id
+WHERE
   o.total > 100
-order by
-  o.total desc
+ORDER BY
+  o.total DESC

@@ -1,11 +1,11 @@
-create table users (
-  id int primary key,
-  name varchar(255) not null,
-  email varchar(255) unique
+CREATE TABLE users (
+  id int PRIMARY KEY,
+  name varchar(255) NOT NULL,
+  email varchar(255) UNIQUE
 );
 
-alter table users add column phone varchar (
+ALTER TABLE users ADD COLUMN phone varchar (
   20
 );
 
-drop table old_users
+DROP TABLE old_users

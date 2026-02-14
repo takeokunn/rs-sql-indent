@@ -10,15 +10,6 @@ pub enum FormatStyle {
 }
 
 impl FormatStyle {
-    pub fn default_uppercase(&self) -> bool {
-        match self {
-            FormatStyle::Basic => true,
-            FormatStyle::Streamline => false,
-            FormatStyle::Aligned => true,
-            FormatStyle::Dataops => true,
-        }
-    }
-
     pub fn from_name(name: &str) -> Self {
         match name {
             "basic" => FormatStyle::Basic,
@@ -86,14 +77,6 @@ mod tests {
         assert_eq!(FormatStyle::Streamline.to_string(), "streamline");
         assert_eq!(FormatStyle::Aligned.to_string(), "aligned");
         assert_eq!(FormatStyle::Dataops.to_string(), "dataops");
-    }
-
-    #[test]
-    fn test_format_style_default_uppercase() {
-        assert!(FormatStyle::Basic.default_uppercase());
-        assert!(!FormatStyle::Streamline.default_uppercase());
-        assert!(FormatStyle::Aligned.default_uppercase());
-        assert!(FormatStyle::Dataops.default_uppercase());
     }
 
     #[test]
