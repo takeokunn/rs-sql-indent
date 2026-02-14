@@ -21,27 +21,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-
-      - uses: ./.github/actions/setup-rust
+      - uses: cachix/install-nix-action@v31
+      - uses: cachix/cachix-action@v15
         with:
-          targets: wasm32-unknown-unknown
-
-      - uses: ./.github/actions/setup-wasm
-
-      - name: Build WASM
-        run: wasm-pack build --target web --out-dir playground/pkg
-
-      - uses: ./.github/actions/setup-node
-
-      - name: Build frontend
-        run: pnpm run build
-        working-directory: playground
-
+          name: takeokunn-rs-sql-indent
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+      - name: Build playground
+        run: nix build .#playground
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: playground/dist
-
+          path: result
   deploy:
     needs: build
     runs-on: ubuntu-latest

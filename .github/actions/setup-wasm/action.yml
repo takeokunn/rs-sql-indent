@@ -1,9 +1,0 @@
-name: Setup wasm-pack
-description: Install wasm-pack
-
-runs:
-  using: composite
-  steps:
-    - name: Install wasm-pack
-      shell: bash
-      run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
