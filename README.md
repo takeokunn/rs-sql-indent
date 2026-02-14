@@ -2,7 +2,7 @@
 
 A fast, opinionated SQL formatter CLI tool written in Rust.
 
-![CI](https://github.com/takeokunn/rs-sql-indent/actions/workflows/ci.yml/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
 ## Features
 
